@@ -22,7 +22,6 @@ public class ExternalProductService {
    * @return Product specified by the given product ID, if found.
    */
   public Optional<Product> getProductFromExternalApi(long productId) {
-    // TODO Make this URL configurable, instead of hard-coded.
     String productResourceUrl = String.format("https://redsky.target.com/v2/pdp/tcin/%d" +
             "?excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics", productId);
 
