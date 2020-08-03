@@ -3,15 +3,12 @@ package com.target.redsky.myretail.service;
 import com.target.redsky.myretail.entity.Price;
 import com.target.redsky.myretail.entity.Product;
 import com.target.redsky.myretail.repository.PriceRepository;
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 public class ProductService {
-
-  private static final Logger log = Logger.getLogger(ProductService.class.getName());
 
   private final ExternalProductService externalProductService;
 

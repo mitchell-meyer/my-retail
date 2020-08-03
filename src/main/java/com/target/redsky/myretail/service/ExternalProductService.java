@@ -15,6 +15,12 @@ public class ExternalProductService {
 
   private static final Logger log = Logger.getLogger(ExternalProductService.class.getName());
 
+  private final RestTemplate restTemplate;
+
+  public ExternalProductService(RestTemplate restTemplate) {
+    this.restTemplate = restTemplate;
+  }
+
   /**
    * Retrieve product information from an external API.
    *
@@ -27,7 +33,7 @@ public class ExternalProductService {
 
     ResponseEntity<ExternalProductWrapper> externalProductWrapper;
     try {
-      externalProductWrapper = new RestTemplate().getForEntity(productResourceUrl, ExternalProductWrapper.class);
+      externalProductWrapper = restTemplate.getForEntity(productResourceUrl, ExternalProductWrapper.class);
     } catch (HttpClientErrorException e) {
       log.error(String.format("Error occurred accessing external API [%s]: ", productResourceUrl));
       return Optional.empty();

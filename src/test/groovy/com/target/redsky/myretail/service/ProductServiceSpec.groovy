@@ -16,7 +16,7 @@ class ProductServiceSpec extends Specification {
     productService = new ProductService(externalProductService, priceRepository)
   }
 
-  void "Happy Path"() {
+  void "Retrieving product and pricing information should be compiled properly into a single return object."() {
     given:
     long productId = 1
 
