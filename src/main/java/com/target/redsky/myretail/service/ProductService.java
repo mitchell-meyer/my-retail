@@ -30,26 +30,30 @@ public class ProductService {
    */
   public Product getProduct(long productId) {
     Optional<Product> optionalProduct = externalProductService.getProductFromExternalApi(productId);
+
+    Product product;
     if (optionalProduct.isPresent()) {
-      Product product = optionalProduct.get();
-
-      Optional<Price> optionalPrice = priceRepository.findById(productId);
-      optionalPrice.ifPresent(price -> {
-        product.setCurrentPrice(price.getCurrentPrice());
-        product.setCurrencyCode(price.getCurrencyCode());
-      });
-
-      return product;
+      product = optionalProduct.get();
     } else {
-      log.info(String.format("Request for product with ID [%d] was not found.", productId));
-      return null;
+      product = new Product();
+      product.setId(productId);
     }
+
+    Optional<Price> optionalPrice = priceRepository.findById(productId);
+    optionalPrice.ifPresent(price -> {
+      product.setCurrentPrice(price.getCurrentPrice());
+      product.setCurrencyCode(price.getCurrencyCode());
+    });
+
+    return product;
   }
 
   /**
-   * TODO
+   * Save product pricing information.
+   *
+   * @param price Pricing information for a product.
    */
-  public void saveProductPrice() {
-
+  public void saveProductPrice(Price price) {
+    priceRepository.save(price);
   }
 }

@@ -1,11 +1,9 @@
 package com.target.redsky.myretail.controller;
 
+import com.target.redsky.myretail.entity.Price;
 import com.target.redsky.myretail.entity.Product;
 import com.target.redsky.myretail.service.ProductService;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/products")
@@ -29,12 +27,14 @@ public class ProductController {
   }
 
   /**
-   * TODO
+   * Save product pricing information.
    *
-   * @param productId
+   * @param productId ID of the product for which to save pricing information.
    */
   @RequestMapping(value = "/{productId}", method = RequestMethod.PUT)
-  public void saveProduct(@PathVariable(value="productId") long productId) {
-    productService.saveProductPrice();
+  public void savePrice(@PathVariable(value="productId") long productId,
+                        @RequestBody Price price) {
+    price.setId(productId);
+    productService.saveProductPrice(price);
   }
 }
